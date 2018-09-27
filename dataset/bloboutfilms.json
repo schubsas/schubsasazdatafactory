@@ -1,0 +1,70 @@
+{
+	"name": "bloboutfilms",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "schubblobservice",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "output"
+		},
+		"annotations": [
+			"annot"
+		],
+		"type": "AzureBlob",
+		"structure": [
+			{
+				"name": "FilmID",
+				"type": "String"
+			},
+			{
+				"name": "Title",
+				"type": "String"
+			},
+			{
+				"name": "Year",
+				"type": "Int16"
+			},
+			{
+				"name": "Rating",
+				"type": "Int16"
+			},
+			{
+				"name": "Length",
+				"type": "Int16"
+			},
+			{
+				"name": "Decade",
+				"type": "String"
+			},
+			{
+				"name": "RatingSquare",
+				"type": "Int16"
+			},
+			{
+				"name": "RatingStar",
+				"type": "Int16"
+			},
+			{
+				"name": "RatingColor",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"columnDelimiter": ";",
+				"rowDelimiter": "",
+				"quoteChar": "\"",
+				"nullValue": "\\N",
+				"encodingName": null,
+				"treatEmptyAsNull": true,
+				"skipLineCount": 0,
+				"firstRowAsHeader": true
+			},
+			"fileName": "Films.csv",
+			"folderPath": "blobin"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

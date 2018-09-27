@@ -1,0 +1,87 @@
+{
+	"name": "copypipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "CopyBlob2Blob",
+				"type": "Copy",
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"source": {
+						"type": "BlobSource",
+						"recursive": true
+					},
+					"sink": {
+						"type": "BlobSink",
+						"copyBehavior": "MergeFiles"
+					},
+					"enableStaging": false,
+					"dataIntegrationUnits": 0,
+					"translator": {
+						"type": "TabularTranslator",
+						"columnMappings": {
+							"FilmID": "FilmID",
+							"Title": "Title",
+							"Year": "Year",
+							"Rating": "Rating",
+							"Length": "Length",
+							"Decade": "Decade",
+							"RatingSquare": "RatingSquare",
+							"RatingStar": "RatingStar",
+							"RatingColor": "RatingColor"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "bloboutfilms",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "bloboutfilms",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"url": "https://api.webtrends.io/v1/account/b2kfrcph3e/dataexport/{report_id}/data?format={format}&load={load}&limit={limit}",
+					"method": "GET",
+					"linkedServices": [
+						{
+							"referenceName": "schubblobservice",
+							"type": "LinkedServiceReference"
+						}
+					],
+					"datasets": [
+						{
+							"referenceName": "bloboutfilms",
+							"type": "DatasetReference"
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "copypipes"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
